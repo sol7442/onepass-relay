@@ -6,9 +6,11 @@ import java.io.UnsupportedEncodingException;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.util.EntityUtils;
 
 /**
  * @author Yong
@@ -18,55 +20,91 @@ public class OnePassRelayClient {
 	private OnePassRelayManager mgr = OnePassRelayManager.getInstace();
 	
 	/**
-	 * OnePass¸¦ ÅëÇÑ °£ÆíÀÎÁõ ¼­ºñ½º¸¦ ÀÌ¿ëÇÒ ¼ö ÀÖµµ·Ï »ç¿ëÀÚÀÇ ÀÎÁõÀåÄ¡¸¦ OnePass Server¿¡ µî·Ï ¿äÃ»ÇÕ´Ï´Ù.
+	 * OnePassë¥¼ í†µí•œ ê°„í¸ì¸ì¦ ì„œë¹„ìŠ¤ë¥¼ ì´ìš©í•  ìˆ˜ ìˆë„ë¡ ì‚¬ìš©ìì˜ ì¸ì¦ì¥ì¹˜ë¥¼ OnePass Serverì— ë“±ë¡ ìš”ì²­í•©ë‹ˆë‹¤.
 	 */
 	public OnePassRelayResponse regist(String userId,String deviceId) {
 		OnePassRelayRequest request = new OnePassRelayRequest();
+		request.setAppId(mgr.getAppId());
 		request.setLoginId(userId);
 		request.setDeviceId(deviceId);
 		
-		return post("Regist",request);
+		return post(OnePassServicePath.SRV_REGIST,request);
 	}
 	
 	/**
-	 * OnePass¸¦ ÅëÇÑ °£ÆíÀÎÁõ ¼­ºñ½º¸¦ ÇØÁöÇÏ±â À§ÇØ OnePass Server¿¡ µî·ÏµÈ ÀÎÁõÀåÄ¡¿¡ ´ëÇØ »èÁ¦¸¦ ¿äÃ»ÇÕ´Ï´Ù.
+	 * OnePassë¥¼ í†µí•œ ê°„í¸ì¸ì¦ ì„œë¹„ìŠ¤ë¥¼ í•´ì§€í•˜ê¸° ìœ„í•´ OnePass Serverì— ë“±ë¡ëœ ì¸ì¦ì¥ì¹˜ì— ëŒ€í•´ ì‚­ì œë¥¼ ìš”ì²­í•©ë‹ˆë‹¤.
 	 */
-	public void release() {}
-	
-	/**
-	 * OnePass¸¦ ÅëÇÑ °£ÆíÀÎÁõÀ» ¿äÃ»ÇÕ´Ï´Ù.
-	 */
-	public void auth() {}
-	
-	/**
-	 * OnePass Server¿¡ µî·ÏÇß´ø ÀÎÁõÀåÄ¡¸¦ ´Ù¸¥ ÀÎÁõÀåÄ¡·Î º¯°æµî·ÏÀ» ¿äÃ»ÇÕ´Ï´Ù. 
-	 */
-	public void changeAuthnr() {}
-	
-	/**
-	 * ´Ü¸» ÃÊ±âÈ­ µîÀ¸·Î ÀÎÁõÀåÄ¡¸¦ »ç¿ëÇÒ ¼ö ¾ø°Ô µÈ °æ¿ì¿¡, OnePass Server¿¡ µî·ÏµÈ ÀÎÁõÀåÄ¡ Á¤º¸¸¦ ¸ğµÎ ÃÊ±âÈ­ ÇÏ°í »õ·Î¿î ÀÎÁõÀåÄ¡¸¦ µî·Ï ¿äÃ»ÇÕ´Ï´Ù. 
-	 */
-	public void initAuthnr() {}
-	
-	/**
-	 * Å¸ÀÎ¿¡ ÀÇÇØ OnePass Server¿¡ µî·ÏÇÏ¿© »ç¿ëÇÏ´ø ´Ü¸»±âÀÇ Á¤º¸¸¦ ÃÊ±âÈ­ ÇÏ°í, »õ·Î ¿äÃ»ÇÏ´Â »ç¿ëÀÚ°¡ ÇâÈÄ °£ÆíÀÎÁõ¿¡ »ç¿ëÇÒ ¼ö ÀÖµµ·Ï ¿øÆĞ½º ½Ã½ºÅÛ¿¡ µî·ÏÀ» ¿äÃ»ÇÕ´Ï´Ù.
-	 */
-	public void initDevice() {}
-	
-	
-	/**
-	 * ¾÷¹«¼­¹ö¿¡¼­ ¿äÃ»ÇÑ ¼­ºñ½º¿¡ ´ëÇÏ¿© °Å·¡ »óÅÂ¸¦ È®ÀÎÇÏ±â À§ÇÏ¿© °Å·¡°á°ú È®ÀÎÀ» ¿äÃ»ÇÕ´Ï´Ù.
-	 */
-	public void confirmResult() {
+	public OnePassRelayResponse release(String userId,String deviceId) {
+		OnePassRelayRequest request = new OnePassRelayRequest();
+		request.setAppId(mgr.getAppId());
+		request.setLoginId(userId);
+		request.setDeviceId(deviceId);
 		
+		return post(OnePassServicePath.SRV_RELEASE,request);
+	}
+	
+	/**
+	 * OnePassë¥¼ í†µí•œ ê°„í¸ì¸ì¦ì„ ìš”ì²­í•©ë‹ˆë‹¤.
+	 */
+	public OnePassRelayResponse auth(String userId,String deviceId) {
+		OnePassRelayRequest request = new OnePassRelayRequest();
+		request.setAppId(mgr.getAppId());
+		request.setLoginId(userId);
+		request.setDeviceId(deviceId);
+		
+		return post(OnePassServicePath.SRV_AUTH,request);
+	}
+	
+	/**
+	 * OnePass Serverì— ë“±ë¡í–ˆë˜ ì¸ì¦ì¥ì¹˜ë¥¼ ë‹¤ë¥¸ ì¸ì¦ì¥ì¹˜ë¡œ ë³€ê²½ë“±ë¡ì„ ìš”ì²­í•©ë‹ˆë‹¤. 
+	 */
+	public OnePassRelayResponse change(String userId,String deviceId) {
+		OnePassRelayRequest request = new OnePassRelayRequest();
+		request.setAppId(mgr.getAppId());
+		request.setLoginId(userId);
+		request.setDeviceId(deviceId);
+		
+		return post(OnePassServicePath.SRV_CHANGE,request);
+	}
+	
+	/**
+	 * ë‹¨ë§ ì´ˆê¸°í™” ë“±ìœ¼ë¡œ ì¸ì¦ì¥ì¹˜ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ê²Œ ëœ ê²½ìš°ì—, OnePass Serverì— ë“±ë¡ëœ ì¸ì¦ì¥ì¹˜ ì •ë³´ë¥¼ ëª¨ë‘ ì´ˆê¸°í™” í•˜ê³  ìƒˆë¡œìš´ ì¸ì¦ì¥ì¹˜ë¥¼ ë“±ë¡ ìš”ì²­í•©ë‹ˆë‹¤. 
+	 */
+	public OnePassRelayResponse initAuthnr(String userId,String deviceId) {
+		OnePassRelayRequest request = new OnePassRelayRequest();
+		request.setAppId(mgr.getAppId());
+		request.setLoginId(userId);
+		request.setDeviceId(deviceId);
+		
+		return post(OnePassServicePath.SRV_INIT_AUTHNR,request);
+	}
+	
+	/**
+	 * íƒ€ì¸ì— ì˜í•´ OnePass Serverì— ë“±ë¡í•˜ì—¬ ì‚¬ìš©í•˜ë˜ ë‹¨ë§ê¸°ì˜ ì •ë³´ë¥¼ ì´ˆê¸°í™” í•˜ê³ , ìƒˆë¡œ ìš”ì²­í•˜ëŠ” ì‚¬ìš©ìê°€ í–¥í›„ ê°„í¸ì¸ì¦ì— ì‚¬ìš©í•  ìˆ˜ ìˆë„ë¡ ì›íŒ¨ìŠ¤ ì‹œìŠ¤í…œì— ë“±ë¡ì„ ìš”ì²­í•©ë‹ˆë‹¤.
+	 */
+	public OnePassRelayResponse initDevice(String userId,String deviceId) {
+		OnePassRelayRequest request = new OnePassRelayRequest();
+		request.setAppId(mgr.getAppId());
+		request.setLoginId(userId);
+		request.setDeviceId(deviceId);
+		
+		return post(OnePassServicePath.SRV_INIT_DEVICE,request);
 	}
 	
 	
 	/**
-	 * ¾÷¹«¼­¹ö¿¡¼­ ¿äÃ»ÇÑ »çÀÌÆ®/¼­ºñ½º¿¡ ´ëÇÑ µî·ÏÇã¿ëµÈ ÀÎÁõÀåÄ¡ ¸ñ·ÏÀ» Á¦°øÇÑ´Ù. 
+	 * ì—…ë¬´ì„œë²„ì—ì„œ ìš”ì²­í•œ ì„œë¹„ìŠ¤ì— ëŒ€í•˜ì—¬ ê±°ë˜ ìƒíƒœë¥¼ í™•ì¸í•˜ê¸° ìœ„í•˜ì—¬ ê±°ë˜ê²°ê³¼ í™•ì¸ì„ ìš”ì²­í•©ë‹ˆë‹¤.
 	 */
-	public void allowedAuthnr() {
-		
+	public OnePassRelayResponse confirmResult() {
+		return get(OnePassServicePath.SRV_CONFIRM);
+	}
+	
+	
+	/**
+	 * ì—…ë¬´ì„œë²„ì—ì„œ ìš”ì²­í•œ ì‚¬ì´íŠ¸/ì„œë¹„ìŠ¤ì— ëŒ€í•œ ë“±ë¡í—ˆìš©ëœ ì¸ì¦ì¥ì¹˜ ëª©ë¡ì„ ì œê³µí•œë‹¤. 
+	 */
+	public OnePassRelayResponse allowedAuthnr() {
+		return get(OnePassServicePath.SRV_ALLOWED);
 	}
 	
 	private OnePassRelayResponse post(String path, OnePassRelayRequest request) {
@@ -74,14 +112,15 @@ public class OnePassRelayClient {
 		OnePassRelayResponse  response = null;
 		try {
 			mgr.getClient();
-			HttpPost post = new HttpPost(mgr.getRelayServerUrl() + "/" + path);
+			HttpPost post = new HttpPost(mgr.getServerUrl() + path);
 			post.addHeader("Content-Type", "application/json");
 			post.setEntity(new StringEntity(request.toJsonString()));
 			
 			http_res = mgr.getClient().execute(post);
 			HttpEntity entity = http_res.getEntity();
-			System.out.println(entity);
 			
+			OnePassResponse relay_res = OnePassResponse.fromJson(EntityUtils.toString(entity));
+			response = new OnePassRelayResponse(relay_res);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
@@ -98,7 +137,33 @@ public class OnePassRelayClient {
 		
 		return response;
 	}
-	private void get() {
+	private OnePassRelayResponse get(String path) {
+		CloseableHttpResponse http_res = null;
+		OnePassRelayResponse  response = null;
+		try {
+			mgr.getClient();
+			HttpGet get = new HttpGet(mgr.getServerUrl() + path);
+			get.addHeader("Content-Type", "application/json");
+			
+			http_res = mgr.getClient().execute(get);
+			HttpEntity entity = http_res.getEntity();
+			
+			OnePassResponse relay_res = OnePassResponse.fromJson(EntityUtils.toString(entity));
+			response = new OnePassRelayResponse(relay_res);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				http_res.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
+		return response;
 	}
 }

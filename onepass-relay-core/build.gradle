@@ -1,19 +1,23 @@
+
 project.ext.baseName   	= 'onepass-relay'
-project.ext.appendix   	= 'api'
+project.ext.appendix   	= 'core'
 project.ext.classifier 	= 'beta' //alpha,beta
 project.version    		= '1.0.0'
 
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+	
 buildscript {
    repositories {
          jcenter()
    }
+  
 }
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
 
 dependencies {
-    compile project(':onepass-relay-core')
+    
 }
 
 task make_jar(type:Jar, group:'Build', dependsOn: compileJava, description : 'Default Build'){
@@ -24,3 +28,15 @@ task make_jar(type:Jar, group:'Build', dependsOn: compileJava, description : 'De
 	
 	with jar
 }
+
+task copyToLib(type: Copy, group:'Build', dependsOn: make_jar) {
+ 	println new File(buildDir, 'libs')
+ 	println '${project.buildDir}'
+ 	println '$buildDir/libs'
+ 	
+    into '../onepass-relay-server/WebContent/WEB-INF/lib'
+    from new File(buildDir, 'libs')
+}
+
+
+
