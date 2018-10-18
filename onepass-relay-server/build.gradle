@@ -1,0 +1,77 @@
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+project.webAppDirName = 'WebContent'
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+	
+buildscript {
+   repositories {
+         jcenter()
+   }
+   dependencies {
+         classpath 'com.bmuschko:gradle-tomcat-plugin:2.5'
+   }
+}
+
+eclipse {
+  project {
+  	buildCommands.clear();
+    buildCommand 'org.eclipse.jdt.core.javabuilder'
+    buildCommand 'org.eclipse.wst.common.project.facet.core.builder'
+    buildCommand 'org.eclipse.buildship.core.gradleprojectbuilder'
+    buildCommand 'org.jboss.tools.jst.web.kb.kbbuilder'
+    buildCommand 'org.jboss.tools.cdi.core.cdibuilder'
+    buildCommand 'org.eclipse.wst.validation.validationbuilder'
+  }
+  wtp {
+    component {
+      	contextPath = project.name
+      	
+      	libConfigurations += [ project(":onepass-relay-core").configurations.runtime ]
+    }
+
+    facet {
+    	facet name: 'java', version: '1.5'
+      	facet name: 'jst.web', version: '2.5'
+      	facet name: 'wst.jsdt.web', version: '1.0'
+    }
+  }
+}
+
+task initWebSourceFolders {
+    [webAppDir, new File(webAppDir, '/WEB-INF' )].each {
+    	if( !it.exists() ) {
+            it.mkdirs()
+        }
+    }
+}
+	
+dependencies {
+    compile project(':onepass-relay-core')
+        
+	compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+}
+
+
+/*
+webAppDirName='WebContent'
+
+
+buildscript {
+   repositories {
+         jcenter()
+   }
+   dependencies {
+         classpath 'com.bmuschko:gradle-tomcat-plugin:2.5'
+   }
+}
+
+dependencies {
+     def tomcatVersion = '9.0.12'
+     tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+     "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+     "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+}
+*/
