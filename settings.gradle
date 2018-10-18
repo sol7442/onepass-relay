@@ -1,0 +1,2 @@
+rootProject.name = 'onepass-relay'
+include "onepass-relay-core","onepass-relay-api","onepass-relay-server"
