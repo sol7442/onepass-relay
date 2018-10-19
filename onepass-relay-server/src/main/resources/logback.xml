@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="fasle" scanPeriod="3000 seconds">
+  	<property name="LOG_MODE" value="DEBUG" />
+  	<property name="LOG_APPDER" value="STDOUT" />
+  
+  	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    	<layout class="ch.qos.logback.classic.PatternLayout">
+        	<pattern>%d{HH:mm:ss} [%-5p] [%F]%M\(%L\) : %m%n</pattern>
+      	</layout>
+  	</appender>
+  	
+  	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logger.filepath}/${logger.filename}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.filename}.%d{yyyy-MM-dd}.log</fileNamePattern>
+             <maxHistory>30</maxHistory>
+        </rollingPolicy>
+ 
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+  	<if condition='property("logger.type").contains("FILE")'>
+  		<then>
+  			<root level="${loger.level}">
+        		<appender-ref ref="FILE" />
+    		</root>
+  		</then>
+  		<else>
+  			<root level="DEBUG">
+        		<appender-ref ref="CONSOLE" />
+    		</root>
+  		</else>
+  	</if>
+
+
+  	
+</configuration>

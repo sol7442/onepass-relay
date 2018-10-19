@@ -22,8 +22,7 @@ public class OnePassClient {
 		this.svcTrId = trid;
 	}
 
-	public OnePassResponse regist(OnePassRelayRequest relay_req) {
-		OnePassRequest request = new OnePassRequest(relay_req);
+	public OnePassResponse regist(OnePassRequest request ) {
 		request.setCommand("requestServiceRegist");
 		
 		request.setBizReqType("server");
@@ -34,8 +33,7 @@ public class OnePassClient {
 		return post(request);
 	}
 	
-	public OnePassResponse release(OnePassRelayRequest relay_req) {
-		OnePassRequest request = new OnePassRequest(relay_req);
+	public OnePassResponse release(OnePassRequest request ) {
 		request.setCommand("requestServiceRelease");
 		
 		request.setBizReqType("server");
@@ -46,8 +44,7 @@ public class OnePassClient {
 		return post(request);
 	}
 	
-	public OnePassResponse auth(OnePassRelayRequest relay_req) {
-		OnePassRequest request = new OnePassRequest(relay_req);
+	public OnePassResponse auth(OnePassRequest request ) {
 		request.setCommand("requestServiceAuth");
 		
 		request.setBizReqType("server");
@@ -58,8 +55,7 @@ public class OnePassClient {
 		return post(request);
 	}
 	
-	public OnePassResponse change(OnePassRelayRequest relay_req) {
-		OnePassRequest request = new OnePassRequest(relay_req);
+	public OnePassResponse change(OnePassRequest request ) {
 		request.setCommand("requestServiceChangeAuthnr");
 		
 		request.setBizReqType("server");
@@ -70,8 +66,7 @@ public class OnePassClient {
 		return post(request);
 	}
 	
-	public OnePassResponse initAuthnr(OnePassRelayRequest relay_req) {
-		OnePassRequest request = new OnePassRequest(relay_req);
+	public OnePassResponse initAuthnr(OnePassRequest request ) {
 		request.setCommand("requestServiceInitAuthnr");
 		
 		request.setBizReqType("server");
@@ -82,8 +77,7 @@ public class OnePassClient {
 		return post(request);
 	}
 	
-	public OnePassResponse initDevice(OnePassRelayRequest relay_req) {
-		OnePassRequest request = new OnePassRequest(relay_req);
+	public OnePassResponse initDevice(OnePassRequest request ) {
 		request.setCommand("requestServiceInitDevice");
 		
 		request.setBizReqType("server");
@@ -95,8 +89,7 @@ public class OnePassClient {
 	}
 	
 	
-	public OnePassResponse confirm() {
-		OnePassRequest request = new OnePassRequest();
+	public OnePassResponse confirm(OnePassRequest request) {
 		request.setCommand("trResultConfirm");
 		request.setSvcTrId(this.svcTrId);
 		
@@ -104,8 +97,7 @@ public class OnePassClient {
 	}
 	
 	
-	public OnePassResponse allowed() {
-		OnePassRequest request = new OnePassRequest();
+	public OnePassResponse allowed(OnePassRequest request) {
 		request.setCommand("allowedAuthnr");
 		request.setSvcId(mgr.getServiceId());
 		request.setSiteId(mgr.getSiteId());

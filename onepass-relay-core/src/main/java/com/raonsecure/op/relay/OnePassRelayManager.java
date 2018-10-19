@@ -1,16 +1,23 @@
 package com.raonsecure.op.relay;
 
+import java.lang.reflect.Modifier;
+
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class OnePassRelayManager {
-	private static OnePassRelayManager instance;
+	
+	private transient static OnePassRelayManager instance;
+	private transient CloseableHttpClient client;
+	
 	private String serverUrl;
 	private String serviceId;
 	private String siteId;
 	private String appId;
-	
 	private int maxPoolSize;
 	
 	public int getMaxPoolSize() {
@@ -20,7 +27,7 @@ public class OnePassRelayManager {
 		this.maxPoolSize = maxPoolSize;
 	}
 
-	private CloseableHttpClient client;
+	
 	
 	private OnePassRelayManager() {}
 	public static OnePassRelayManager getInstace() {
@@ -36,7 +43,6 @@ public class OnePassRelayManager {
 		this.maxPoolSize = maxPool;
 		
 		if(this.client == null) {
-			System.out.println("connectino pool init");
 			PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
 			cm.setMaxTotal(this.maxPoolSize);		
 			cm.setDefaultMaxPerRoute(10);
@@ -85,5 +91,13 @@ public class OnePassRelayManager {
 	
 	public CloseableHttpClient getClient() {
 		return this.client;
+	}
+	
+	public String toString() {
+	    GsonBuilder builder = new GsonBuilder();
+	    builder.excludeFieldsWithModifiers(Modifier.TRANSIENT);  
+	    builder.setPrettyPrinting();
+		Gson gson = builder.create();
+		return gson.toJson(this);
 	}
 }

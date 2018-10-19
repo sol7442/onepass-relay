@@ -13,7 +13,7 @@
     <description></description>
     <display-name>OnePassRelayService</display-name>
     <servlet-name>OnePassRelayService</servlet-name>
-    <servlet-class>com.raonsecure.op.relay.OnePassRelayService</servlet-class>
+    <servlet-class>com.raonsecure.op.relay.OnePassRelayService</servlet-class>    
     <init-param>
          <param-name>serverUrl</param-name><param-value>https://onepassdemo.raonsecure.co.kr:9300/interfBiz/processRequest.do</param-value>
    	</init-param>
@@ -26,6 +26,22 @@
    	<init-param>
          <param-name>maxPool</param-name><param-value>100</param-value>
    	</init-param>
+   	<init-param>
+         <param-name>LoggerType</param-name><param-value>FILE</param-value>
+   	</init-param>
+   	<init-param>
+         <param-name>LoggerLevel</param-name><param-value>DEBUG</param-value>
+   	</init-param>
+   	<init-param>
+         <param-name>LoggerPath</param-name><param-value>D:\workspace\git\onepass-relay\logs</param-value>
+   	</init-param>
+   	<init-param>
+         <param-name>LoggerFile</param-name><param-value>onepass_relay</param-value>
+   	</init-param>
+   	<init-param>
+         <param-name>LoggerConfig</param-name><param-value>D:/workspace/git/onepass-relay/onepass-relay-server/src/main/resources/logback.xml</param-value>
+   	</init-param>
+   	<load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>OnePassRelayService</servlet-name>
