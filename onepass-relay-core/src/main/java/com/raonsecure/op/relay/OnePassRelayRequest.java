@@ -3,10 +3,11 @@ package com.raonsecure.op.relay;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class OnePassRelayRequest {
+public class OnePassRelayRequest extends JsonMessage {
 	private String loginId;
 	private String deviceId;
-	
+	private String appId;
+
 	public String getLoginId() {
 		return loginId;
 	}
@@ -22,14 +23,15 @@ public class OnePassRelayRequest {
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
 	}
-
-	public OenPassRequest getRequest() {
-		return null;
-	}
 	
-	public String toJsonString() {
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		return gson.toJson(this);
+	
+
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
 	}
 
 	public static OnePassRelayRequest fromJson(String payload) {

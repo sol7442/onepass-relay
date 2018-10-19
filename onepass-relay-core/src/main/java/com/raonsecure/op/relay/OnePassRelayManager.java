@@ -6,11 +6,20 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
 public class OnePassRelayManager {
 	private static OnePassRelayManager instance;
-	private String relayServerUrl;
+	private String serverUrl;
 	private String serviceId;
 	private String siteId;
 	private String appId;
 	
+	private int maxPoolSize;
+	
+	public int getMaxPoolSize() {
+		return maxPoolSize;
+	}
+	public void setMaxPoolSize(int maxPoolSize) {
+		this.maxPoolSize = maxPoolSize;
+	}
+
 	private CloseableHttpClient client;
 	
 	private OnePassRelayManager() {}
@@ -20,16 +29,30 @@ public class OnePassRelayManager {
 		}
 		return instance;
 	}
-	public void initialize(String url, String srvId, String siteId, String appId) {
-		this.relayServerUrl = url;
+	public void initialize(String url, String srvId, String siteId, int maxPool) {
+		this.serverUrl = url;
 		this.serviceId = srvId;
 		this.siteId = siteId;
-		this.appId  = appId;
+		this.maxPoolSize = maxPool;
 		
 		if(this.client == null) {
 			System.out.println("connectino pool init");
 			PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-			cm.setMaxTotal(100);		
+			cm.setMaxTotal(this.maxPoolSize);		
+			cm.setDefaultMaxPerRoute(10);
+			this.client = HttpClients.custom().setConnectionManager(cm).build();
+		}
+	}
+	
+	public void initialize(String url, String appId, int maxPool) {
+		this.serverUrl = url;
+		this.appId  = appId;
+		this.maxPoolSize = maxPool;
+		
+		if(this.client == null) {
+			System.out.println("connectino pool init");
+			PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+			cm.setMaxTotal(this.maxPoolSize);		
 			cm.setDefaultMaxPerRoute(10);
 			this.client = HttpClients.custom().setConnectionManager(cm).build();
 		}
@@ -41,11 +64,11 @@ public class OnePassRelayManager {
 	public void setAppId(String appId) {
 		this.appId = appId;
 	}
-	public String getRelayServerUrl() {
-		return relayServerUrl;
+	public String getServerUrl() {
+		return serverUrl;
 	}
-	public void setRelayServerUrl(String relayServerUrl) {
-		this.relayServerUrl = relayServerUrl;
+	public void setServerUrl(String serverUrl) {
+		this.serverUrl = serverUrl;
 	}
 	public String getServiceId() {
 		return serviceId;

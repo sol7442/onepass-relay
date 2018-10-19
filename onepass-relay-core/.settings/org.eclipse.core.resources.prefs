@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/raonsecure/op/relay/JsonMessage.java=UTF-8
+encoding//src/main/java/com/raonsecure/op/relay/OnePassDevice.java=UTF-8
+encoding//src/main/java/com/raonsecure/op/relay/OnePassRelayManager.java=UTF-8
+encoding//src/main/java/com/raonsecure/op/relay/OnePassRelayRequest.java=UTF-8
+encoding//src/main/java/com/raonsecure/op/relay/OnePassRelayResponse.java=UTF-8
+encoding//src/main/java/com/raonsecure/op/relay/OnePassRequest.java=UTF-8
+encoding//src/main/java/com/raonsecure/op/relay/OnePassResponse.java=UTF-8
+encoding//src/main/java/com/raonsecure/op/relay/OnePassResult.java=UTF-8

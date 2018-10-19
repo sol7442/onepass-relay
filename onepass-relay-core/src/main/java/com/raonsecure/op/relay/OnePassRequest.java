@@ -3,7 +3,7 @@ package com.raonsecure.op.relay;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class OenPassRequest {
+public class OnePassRequest extends JsonMessage {
 	private String command;
 	private String bizReqType;
 	private String svcId;
@@ -13,6 +13,17 @@ public class OenPassRequest {
 	private String deviceId;
 	private String appId;
 	
+	
+	public OnePassRequest() {
+		
+	}
+	
+	public OnePassRequest(OnePassRelayRequest relay_req) {
+		this.deviceId = relay_req.getDeviceId();
+		this.loginId  = relay_req.getLoginId();
+		this.appId    = relay_req.getAppId();	
+		this.bizReqType = "server";
+	}
 	public String getBizReqType() {
 		return bizReqType;
 	}
@@ -62,8 +73,4 @@ public class OenPassRequest {
 		this.svcId = svcId;
 	}
 	
-	public String toJsonString() {
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		return gson.toJson(this);
-	}
 }

@@ -14,6 +14,18 @@
     <display-name>OnePassRelayService</display-name>
     <servlet-name>OnePassRelayService</servlet-name>
     <servlet-class>com.raonsecure.op.relay.OnePassRelayService</servlet-class>
+    <init-param>
+         <param-name>serverUrl</param-name><param-value>https://onepassdemo.raonsecure.co.kr:9300/interfBiz/processRequest.do</param-value>
+   	</init-param>
+   	<init-param>
+         <param-name>serviceId</param-name><param-value>HC0000000000</param-value>
+   	</init-param>
+   	<init-param>
+         <param-name>siteId</param-name><param-value>TEST0000000000</param-value>
+   	</init-param>
+   	<init-param>
+         <param-name>maxPool</param-name><param-value>100</param-value>
+   	</init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>OnePassRelayService</servlet-name>
