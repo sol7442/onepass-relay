@@ -1,7 +1,7 @@
 project.ext.baseName   	= 'onepass-relay'
 project.ext.appendix   	= 'api'
-project.ext.classifier 	= 'rc1' //alpha,beta
-project.version    		= '1.0.0'
+project.ext.classifier 	= '' //alpha,beta
+project.version    		= '1.0.1'
 
 buildscript {
    repositories {
@@ -11,7 +11,7 @@ buildscript {
 
 
 dependencies {
-    compile project(':onepass-relay-core')
+    //compile project(':onepass-relay-core')
 }
 
 
