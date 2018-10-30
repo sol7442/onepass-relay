@@ -1,7 +1,7 @@
 
 project.ext.baseName   	= 'onepass-relay'
 project.ext.appendix   	= 'core'
-project.ext.classifier 	= 'beta' //alpha,beta
+project.ext.classifier 	= 'rc1' //alpha,beta
 project.version    		= '1.0.0'
 
 
