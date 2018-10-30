@@ -1,7 +1,7 @@
 project.ext.baseName   	= 'onepass-relay'
 project.ext.appendix   	= 'api'
-project.ext.classifier 	= 'beta' //alpha,beta
-project.version    		= '1.0.0'
+project.ext.classifier 	= '' //alpha,beta
+project.version    		= '1.0.1'
 
 buildscript {
    repositories {
@@ -9,12 +9,12 @@ buildscript {
    }
 }
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
 
 dependencies {
-    compile project(':onepass-relay-core')
+    //compile project(':onepass-relay-core')
 }
+
+
 
 task make_jar(type:Jar, group:'Build', dependsOn: compileJava, description : 'Default Build'){
 	baseName   = project.baseName

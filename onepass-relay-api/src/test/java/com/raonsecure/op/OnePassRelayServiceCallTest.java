@@ -5,13 +5,13 @@ import org.junit.Test;
 
 import com.raonsecure.op.relay.OnePassRelayClient;
 import com.raonsecure.op.relay.OnePassRelayManager;
-import com.raonsecure.op.relay.OnePassRelayResponse;
+import com.raonsecure.op.relay.OnePassResponse;
 
 public class OnePassRelayServiceCallTest {
 
-	private String relayUrl  = "http://localhost:8080/onepass-relay-server/OnePassRelayService"; 
-//	private String SiteID 	 = "TEST0000000000";
-//    private String ServiceID = "HC0000000000";
+	private String serverUrl  = "https://onepassdemo.raonsecure.co.kr:9300/interfBiz/processRequest.do"; 
+	private String siteId 	 = "TEST0000000000";
+    private String serviceId = "HC0000000000";
     private String AppID     = "android:apk-key-hash:Df+2X53Z0UscvUu6obxC3rIfFyk";
     
     private String user_id = "userId";
@@ -22,14 +22,14 @@ public class OnePassRelayServiceCallTest {
 	@Before
 	public void init() {
 		mgr = OnePassRelayManager.getInstace();
-		mgr.initialize(relayUrl, AppID,maxPool);
+		mgr.initialize(serverUrl, serviceId, siteId, AppID,maxPool);
 	}
 	
 	@Test
 	public void regist() {
 		System.out.println("regist");
 		OnePassRelayClient oprc = new OnePassRelayClient();
-		OnePassRelayResponse response = oprc.regist(user_id, device_id);
+		OnePassResponse response = oprc.regist(user_id, device_id);
 		System.out.println(response);
 	}
 	
@@ -37,7 +37,7 @@ public class OnePassRelayServiceCallTest {
 	public void release() {
 		System.out.println("release");
 		OnePassRelayClient oprc = new OnePassRelayClient();
-		OnePassRelayResponse response = oprc.release(user_id, device_id);
+		OnePassResponse response = oprc.release(user_id, device_id);
 		System.out.println(response);
 	}
 	
@@ -45,7 +45,7 @@ public class OnePassRelayServiceCallTest {
 	public void auth() {
 		System.out.println("auth");
 		OnePassRelayClient oprc = new OnePassRelayClient();
-		OnePassRelayResponse response = oprc.auth(user_id, device_id);
+		OnePassResponse response = oprc.auth(user_id, device_id);
 		System.out.println(response);
 	}
 	
@@ -53,7 +53,7 @@ public class OnePassRelayServiceCallTest {
 	public void change() {
 		System.out.println("auth");
 		OnePassRelayClient oprc = new OnePassRelayClient();
-		OnePassRelayResponse response = oprc.change(user_id, device_id);
+		OnePassResponse response = oprc.change(user_id, device_id);
 		System.out.println(response);
 	}
 	
@@ -61,7 +61,7 @@ public class OnePassRelayServiceCallTest {
 	public void init_auth() {
 		System.out.println("init_auth");
 		OnePassRelayClient oprc = new OnePassRelayClient();
-		OnePassRelayResponse response = oprc.initAuthnr(user_id, device_id);
+		OnePassResponse response = oprc.initAuthnr(user_id, device_id);
 		System.out.println(response);
 	}
 
@@ -69,7 +69,7 @@ public class OnePassRelayServiceCallTest {
 	public void init_device() {
 		System.out.println("init_device");
 		OnePassRelayClient oprc = new OnePassRelayClient();
-		OnePassRelayResponse response = oprc.initDevice(user_id, device_id);
+		OnePassResponse response = oprc.initDevice(user_id, device_id);
 		System.out.println(response);
 	}
 	
@@ -77,7 +77,7 @@ public class OnePassRelayServiceCallTest {
 	public void result() {
 		System.out.println("result");
 		OnePassRelayClient oprc = new OnePassRelayClient();
-		OnePassRelayResponse response = oprc.confirmResult();
+		OnePassResponse response = oprc.confirmResult();
 		System.out.println(response);
 		
 	}
@@ -85,9 +85,8 @@ public class OnePassRelayServiceCallTest {
 	@Test
 	public void allowlist() {
 		System.out.println("allowlist");
-		System.out.println("result");
 		OnePassRelayClient oprc = new OnePassRelayClient();
-		OnePassRelayResponse response = oprc.allowedAuthnr();
+		OnePassResponse response = oprc.allowedAuthnr();
 		System.out.println(response);
 	}
 }
