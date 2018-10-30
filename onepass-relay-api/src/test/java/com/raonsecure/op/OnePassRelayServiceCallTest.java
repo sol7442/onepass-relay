@@ -9,7 +9,7 @@ import com.raonsecure.op.relay.OnePassResponse;
 
 public class OnePassRelayServiceCallTest {
 
-	private String serverUrl  = "https://onepassdemo.raonsecure.co.kr:9300/interfBiz/processRequest.do"; 
+	private String serverUrl  = "http://localhost:8080/onepass-relay-server/OnePassRelay.jsp"; 
 	private String siteId 	 = "TEST0000000000";
     private String serviceId = "HC0000000000";
     private String AppID     = "android:apk-key-hash:Df+2X53Z0UscvUu6obxC3rIfFyk";

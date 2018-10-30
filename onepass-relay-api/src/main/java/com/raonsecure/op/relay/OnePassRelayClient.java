@@ -163,6 +163,8 @@ public class OnePassRelayClient {
 	}
 	
 	private OnePassResponse post( OnePassRequest request) {
+		
+		
 		CloseableHttpResponse http_res = null;
 		OnePassResponse  response = null;
 		try {
@@ -173,6 +175,8 @@ public class OnePassRelayClient {
 			post.setEntity(new StringEntity(request.toJsonString()));
 			http_res = mgr.getClient().execute(post);
 			HttpEntity entity = http_res.getEntity();
+			System.out.println(entity);
+			System.out.println(EntityUtils.toString(entity));
 			
 			response = OnePassResponse.fromJson(EntityUtils.toString(entity));
 		} catch (UnsupportedEncodingException e) {
